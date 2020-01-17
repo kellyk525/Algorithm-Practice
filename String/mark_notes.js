@@ -344,7 +344,7 @@ function iterate(node) {
     }
 
     //result = [3, 2, 1]; 
-
+  
     for (let i = 0; i < result.length; i++) {
         let from = result[i];
         let to = result[i + 1];
@@ -392,6 +392,7 @@ function iterateTree(root) {
         }
     }
 }
+
 
 // find biggest number from root to leaf.
 function iterateTree(root) {
