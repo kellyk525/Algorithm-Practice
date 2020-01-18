@@ -59,3 +59,25 @@ var postorderTraversal = function (root) {
 
     return final;
 };
+
+
+var maxDepth = function (root) {
+
+    return dfs(root, 0);
+
+    function dfs(node, height) {
+
+        if (!node) return height;
+        return Math.max(dfs(node.left, height + 1), dfs(node.right, height + 1))
+
+    }
+}
+
+
+var maxDepth = function (root, counter = 0) {
+    if (!root) return counter
+    counter += 1
+    let maxLeft = maxDepth(root.left, counter)
+    let maxRight = maxDepth(root.right, counter)
+    return maxLeft >= maxRight ? maxLeft : maxRight
+};
