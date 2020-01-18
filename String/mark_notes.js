@@ -285,7 +285,7 @@ function helper(index) {
 
 function helper2(arr) {
     let result = [];
-
+   
     arr.forEach(n => { result.push(n + 1) });
 
     return result; // [2,3,4,5,6]  // O(n) space;
