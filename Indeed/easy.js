@@ -97,6 +97,52 @@ var longestPalindrome = function (s) {
     return count;
 }
 
+// Moving Average
+
+class MovingAverage {
+    constructor(size) {
+        this.size = size;
+        this.queue = [];
+        this.sum = 0;
+    }
+
+    next(val) {
+
+        this.queue.push(val);
+        this.sum += val;
+
+        if (this.queue.length > this.size) {
+            this.sum -= this.queue.shift();
+        }
+
+        return this.sum / this.queue.length
+    }
+}
+
+// Pivot Index
+
+var pivotIndex = function (nums) {
+    let sum = 0;
+
+    for (let i = 0; i < nums.length; i++) {
+        sum += nums[i];
+    }
+
+    let leftSum = 0;
+
+    for (let i = 0; i < nums.length; i++) {
+        if (leftSum === sum - leftSum - nums[i]) {
+            return i;
+        } else {
+            leftSum += nums[i];
+        }
+    }
+
+    return -1;
+}
+
+
+
 
 // permutation
 
