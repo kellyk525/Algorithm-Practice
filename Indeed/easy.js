@@ -143,8 +143,130 @@ var pivotIndex = function (nums) {
 
 
 
+//  Sum of Even after Queries
 
-// permutation
+var sumEvenAfterQueries = function (A, queries) {
+
+    let final = [];
+
+    for (let i = 0; i < queries.length; i++) {
+
+        let add = queries[i][0];
+        let index = queries[i][1];
+
+        A[index] += add;
+        let sum = 0;
+
+        for (let num of A) {
+            if (num % 2 === 0) {
+                sum += num;
+            }
+        }
+
+        final.push(sum);
+
+    }
+
+    return final;
+
+};
+
+
+// First unique char
+
+var firstUniqChar = function (s) {
+
+    let final = {};
+
+    for (let char of s) {
+        if (final[char]) {
+            final[char] += 1;
+        } else {
+            final[char] = 1;
+        }
+    }
+
+    for (let i = 0; i < s.length; i++) {
+        if (final[s[i]] === 1) {
+            return i;
+        }
+    }
+
+    return -1;
+
+};
+
+
+//  Maximum Subarray
+
+
+var maxSubArray = function (nums) {
+    let current = nums[0];
+    let final = nums[0];
+
+    for (let i = 1; i < nums.length; i++) {
+
+        if (current < 0) {
+            current = nums[i];
+        } else {
+            current += nums[i];
+        }
+
+        final = Math.max(current, final);
+    }
+
+    return final;
+
+}
+
+// Palindrom Linked List
+
+var isPalindrome = function (head) {
+
+    let final = [];
+
+    while (head) {
+        final.push(head.val);
+        head = head.next;
+    }
+
+    let mid = Math.floor(final.length / 2);
+    let part = final.slice(0, mid).join();
+    let second = null;
+
+    if (final.length % 2 === 0) {
+        second = final.splice(mid).reverse().join();
+    } else {
+        second = final.splice(mid + 1).reverse().join();
+    }
+
+    return part === second;
+
+};
+
+
+// permutation (medium)
+
+
+var permute = function (nums) {
+    let stack = [[]];
+    let result = [];
+    while (stack.length) {
+        let last_stack_item = stack.pop();
+
+        if (last_stack_item.length < nums.length) {
+
+            for (let num of nums) {
+                if (!last_stack_item.includes(num)) {
+                    stack.push(last_stack_item.concat([num]));
+                }
+            }
+        } else {
+            result.push(last_stack_item);
+        }
+    }
+    return result;
+};
 
 // subsets
 
@@ -157,5 +279,8 @@ var pivotIndex = function (nums) {
 // sliding window
 
 // kandane algorithm
+
+
+
 
 
