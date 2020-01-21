@@ -179,3 +179,44 @@ var deleteNode = function (node) {
 // If we don't modify the reference node.next the list will now have 2 nodes with the same value.
 
 
+// Single Number
+
+
+var singleNumber = function (nums) {
+
+    let final = {};
+
+    for (let num of nums) {
+
+        if (final[num]) {
+            final[num] += 1;
+        } else {
+            final[num] = 1;
+        }
+    }
+
+    let result = Object.keys(final)
+
+    for (let ele of result) {
+        if (final[ele] === 1) {
+            return ele;
+        }
+    }
+
+};
+
+//  Move Zeroes (draw it out) 
+
+
+var moveZeroes = function (nums) {
+
+    for (let i = nums.length; i >= 0; i--) {
+
+        if (nums[i] === 0) {
+            nums.splice(i, 1);
+            nums.push(0);
+        }
+    }
+};
+
+

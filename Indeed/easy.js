@@ -247,7 +247,6 @@ var isPalindrome = function (head) {
 
 // permutation (medium)
 
-
 var permute = function (nums) {
     let stack = [[]];
     let result = [];
@@ -270,15 +269,73 @@ var permute = function (nums) {
 
 // subsets
 
-// reverse linked list
+var subsets = function (nums) {
 
-// two sum
+    let res = [[]]
+    for (let i = 0; i < nums.length; ++i) {
+        let length = res.length;
+        for (let j = 0; j < length; ++j) {
+            console.log(res, j, i)
+            console.log([...res[j], nums[i]], [...res[j]], nums[i])
+            res.push([...res[j], nums[i]])
+
+        }
+    }
+    return res
+};
+
+// reverse linked list (solved)
+
+// two sum (solved)
+
+// Detect if there is a cycle (one or two more linked list problems)
+
+// One or two more binary tree / binary search problems
 
 // calendar
 
+
+var MyCalendar = function () {
+    this.events = [];
+};
+
+MyCalendar.prototype.book = function (start, end) {
+    var min = 0;
+    var max = this.events.length - 1;
+    var guess;
+
+    while (min <= max) {
+        var guess = Math.floor((min + max) / 2);
+        if (start < this.events[guess][1] && this.events[guess][0] < end) {
+            return false;
+        } else if (this.events[guess][1] > start) {
+            min = guess + 1;
+        } else {
+            max = guess - 1;
+        }
+    }
+
+    this.events.splice(min, 0, [start, end]);
+    return true;
+};
+
+
+
+
+
 // sliding window
 
+// Design autocomplete
+
+// (0 and 1 rectangle question)
+
+// Text justification
+
+// Intuit
+
 // kandane algorithm
+
+
 
 
 

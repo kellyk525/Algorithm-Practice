@@ -60,6 +60,7 @@ var postorderTraversal = function (root) {
     return final;
 };
 
+//  Max Depth of Binary Tree
 
 var maxDepth = function (root) {
 
@@ -73,7 +74,6 @@ var maxDepth = function (root) {
     }
 }
 
-
 var maxDepth = function (root, counter = 0) {
     if (!root) return counter
     counter += 1
@@ -81,3 +81,50 @@ var maxDepth = function (root, counter = 0) {
     let maxRight = maxDepth(root.right, counter)
     return maxLeft >= maxRight ? maxLeft : maxRight
 };
+
+//  Minimum Depth of Binary Tree (refer to explanations)
+
+var minDepth = function (root) {
+    if (!root) return 0;
+    if (!root.left) return minDepth(root.right) + 1;
+    if (!root.right) return minDepth(root.left) + 1;
+    return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
+};
+
+
+//  Balanced Binary Tree
+
+var isBalanced = function (root) {
+    return helper(root, 0) >= 0;
+};
+
+var helper = function (root, depth) {
+    if (!root) return depth;
+    var left = helper(root.left, depth + 1);
+    var right = helper(root.right, depth + 1);
+    if (left === -1 || right === -1 || Math.abs(left - right) > 1) return -1;
+    return Math.max(left, right);
+};
+
+//  Invert Tree
+
+var invertTree = function (root) {
+    if (root) {
+        swap(root);
+        invertTree(root.left);
+        invertTree(root.right);
+    }
+    return root;
+};
+
+var swap = function (node) {
+    var left = node.left;
+    node.left = node.right;
+    node.right = left;
+};
+
+//  Symmetric Tree
+
+//  Word Search
+
+//  Max Area of Island
