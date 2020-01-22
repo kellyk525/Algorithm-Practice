@@ -33,8 +33,6 @@ function example() {
 // Event bubbling / Event capturing  => Event delegation
 
 
-
-
 // Hoisting   => let, const, var
 
 // var => declare a variable in a function scope

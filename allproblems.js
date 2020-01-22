@@ -181,12 +181,77 @@ var moveZeroes = function(n) {
 }
 
 // subsets
+
+function subsets(nums) {
+    let result = [[]];
+
+    for (let i = 0; i < nums.length; i++) {
+        let length = result.length;
+        for (let j = 0; j < length; j ++) {
+            result.push([...result[j], nums[i]]);
+        }
+    }
+
+    return result;
+}
+
 // permutations
+
+function permutations(nums) {
+    let stack = [[]];
+    let result = [];
+
+    while (stack.length) {
+        let last = stack.pop();
+
+        if (last.length < nums.length) {
+            for (let num of nums) {
+                if (!last.includes(num)) {
+                    stack.push(last.concat([num]));
+                }
+            }
+        } else {
+            result.push(last);
+        }
+    }
+    return result;
+}
+
 // palindrome
+
+function isPalindrome(s) {
+    let alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+    let together = [];
+    for (let i = 0; i < s.length; i++) {
+
+        if (alphabet.includes(s[i].toLowerCase())) {
+            together.push(s[i]);
+        } else if (Number.isInteger(parseInt(s[i]))) {
+            together.push(s[i]);
+        }
+    }
+
+    let first = [];
+    let second = [];
+
+    if (together.length === 1) return true;
+
+    if (together.length % 2 === 0) {
+        first = together.slice(0, Math.floor(together.length/2));
+        second = together.slice(Math.floor(together.length / 2)).reverse();
+    } else {
+        first = together.slice(0, Math.floor(together.length/2));
+        second = together.slice(Math.floor(together.length/2 + 1).reverse());
+    }
+
+    return first.join("") === second.join("");
+}
+
+
 // binary search
 // merge sort
 // quick sort
-
 
 //  Node / Linked List problems ---------------
 
@@ -294,7 +359,23 @@ class Node {
 
     //  Remove Nth Node from End of List
 
-    //  Reorder List
+    removeNthFromEnd(head, n) {
+
+        let node = new ListNode(0); node.next = head
+        let fast = node, slow = node
+        for (let i = 1; i <= n + 1; i++) {
+            fast = fast.next
+        }
+
+        while (fast) {
+            fast = fast.next
+            slow = slow.next
+        }
+        slow.next = slow.next.next;
+        return node.next;
+    };
+
+    // Palindrome Linked List
 
 }
 
@@ -347,10 +428,31 @@ class Tree {
 
     }
 
-    minimumDepth() {
+    maximumDepth() {
 
     }
     // N-ary tree
+
+
+    // Level width
+
+    levelWidth(root) {
+
+        let arr = [root, 'w'];
+        let counters = [0];
+
+        while (arr.length > 1) {
+            let node = arr.shift();
+
+            if (node === 'w') {
+                counters.push(0);
+                arr.push('w');
+            } else {
+                arr.push(...node.children);
+                counters[counters.length - 1] += 1;
+            }
+        }
+    }
 
 }
 
@@ -367,9 +469,33 @@ class BinaryTree {
 
     // Insert data
 
+    insert(val) {
+        if (val < this.val && this.left) {
+            this.left.insert(val);
+        } else if (val < this.val) {
+            this.left = new Tree(val);
+        } else if (val > this.val && this.right) {
+            this.right.insert(val);
+        } else if (val > this.val) {
+            this.right = new Tree(val);
+        }
+    }
+
     // Contains data
 
-    // Level Height
+    contains(val) {
+        if (this.val === val) {
+            return this;
+        }
+
+        if (this.val < val && this.right) {
+            return this.right.contains(val);
+        } else if (this.val > val && this.left) {
+            return this.left.contains(val);
+        }
+
+        return null;
+    }
 
     // Inorder 
 
@@ -456,23 +582,59 @@ class BinaryTree {
 
     minDepth(root) {
 
-        function helper(root, height) {
-            if (node) {
-                helper(node.left, )
+        if (!root) return 0;
+        let result;
+
+        function helper(node, depth) {
+            if (!node.left && !node.right) {
+                result = Math.min(result || depth, depth)
             }
+
+            if (node.left) helper(node.left, depth + 1);
+            if (node.right) helper(node.right, depth + 1);
         }
 
-    }
+        helper(root, 1);
+        return result;
+    };
 
     // Largest Number
 
-
-
     // isBalanced
 
+    isBalanced(root) {
+        return helper(root, 0) >= 0;
+
+        function helper(node, height) {
+            if (!node) return height;
+
+            let left = helper(node.left, height + 1);
+            let right = helper(node.right, height + 1);
+            if (left === -1 || right === -1 || Math.abs(left - right) > 1) return -1;
+            return Math.max(left, right);
+        }
+    }
+
     // Invert
-
-    // Swap
-
     // Binary Tree Right Side View
 }
+
+// Invert Tree
+ 
+function invertTree(root) {
+    if (root) {
+        swap(root);
+        invertTree(root.left);
+        invertTree(root.right);
+    }
+    return root;
+
+    function swap(node) {
+        let left = node.left;
+        node.left = node.right;
+        node.right = left;
+    }
+}
+
+
+
