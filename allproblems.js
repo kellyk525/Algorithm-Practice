@@ -217,6 +217,28 @@ function permutations(nums) {
     return result;
 }
 
+function permutations(nums) {
+
+    let stack =[[]];
+    let result = [];
+
+    while (stack.length) {
+        let last = stack.pop();
+
+        if (last.length < nums.length) {
+            for (let num of nums) {
+                if (!last.includes(num)) {
+                    stack.push(last.concat([num]));
+                }
+            }
+        } else {
+            result.push(last);
+        }
+    }
+
+    return result;
+}
+
 // palindrome
 
 function isPalindrome(s) {
@@ -249,6 +271,153 @@ function isPalindrome(s) {
 }
 
 
+// Max Sub Array
+
+function maxSubArray(nums) {
+    let current = nums[0];
+    let final = nums[0];
+
+    for (let i = 1; i < nums.length; i++) {
+        
+        if (current < 0) {
+            current = nums[i];
+        } else {
+            current += nums[i];
+        }
+
+        final = Math.max(current, final);
+    }
+
+    return final;
+}
+
+
+// First Unique Char
+
+function firstUniqueChar(s) {
+
+    let final = {};
+    for (let char of s) {
+        if (final[char]) {
+            final[char] += 1;
+        } else {
+            final[char] = 1;
+        }
+    }
+    for (let i = 0; i < s.length; i++) {
+
+        if (final[s[i]] === 1) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+// Sum of Even after Queries
+
+function sumEvenAfterQueries(A, queries) {
+
+    let final = [];
+
+    for (let i = 0; i < queries.length; i++) {
+        let add = queries[0];
+        let index = queries[1];
+
+        A[index] += add;
+        let sum = 0;
+
+        for (let num of A) {
+            if (num % 2 === 0) {
+                sum += num;
+            }
+        }
+
+        final.push(sum);
+    }
+
+    return sum;
+}
+
+// Pivot Index
+
+function pivotIndex(nums) {
+
+    let sum = 0;
+
+    for (let char of nums) {
+        sum += char;
+    }
+
+    let leftSum = 0;
+
+    for (let i = 0; i < nums.length ; i++) {
+        if (leftSum === sum - leftSum - nums[i]) {
+            return i;
+        } else {
+            leftSum += nums[i];
+        }
+    }
+
+    return -1;
+}
+
+// Longest Palindrome
+
+function longestPalindrome(s) {
+
+    let final = {};
+    let count = 0;
+
+    for (let char of s) {
+        if (final[char] === 1) {
+            delete final[char];
+            count += 2;
+        } else {
+            final[char] = 1;
+        }
+    }
+
+    if (count < s.length) {
+        count += 1;
+    }
+
+    return count;
+}
+
+// Subdomain in Visits
+
+function subDomain(cpdomain) {
+
+    let final = {};
+
+    cpdomain.forEach((domain) => {
+        let split = domain.split(" ");
+        let num = split[0];
+        let word = split[1];
+        let parts = word.split(".");
+
+        while (parts.length) {
+
+            if (final[word]) {
+                final[word] += num;
+            } else {
+                final[word] = num;
+            }
+
+            let length = parts.split().length + 1;
+            word = word.slice(length);
+        }
+    })
+
+    let result = Object.keys(final).map((part) => {
+        let tog = final[part] + " " + part;
+        return tog;
+    })
+
+    return result;
+}
+
 // binary search
 // merge sort
 // quick sort
@@ -273,6 +442,7 @@ class Node {
 
         node.next = Node(value);
     }
+
 
     getValue(index) {
         let node = this;
@@ -303,7 +473,6 @@ class Node {
             // goes to the new value that was set on node.next
         }
     }
-
 
     reverseLinkedList(root) {
 
@@ -483,18 +652,17 @@ class BinaryTree {
 
     // Contains data
 
+
     contains(val) {
         if (this.val === val) {
             return this;
         }
 
-        if (this.val < val && this.right) {
-            return this.right.contains(val);
-        } else if (this.val > val && this.left) {
+        if (this.val < val && this.left) {
             return this.left.contains(val);
+        } else if (this.val > val && this.right) {
+            return this.right.contains(val);
         }
-
-        return null;
     }
 
     // Inorder 
@@ -553,6 +721,7 @@ class BinaryTree {
 
     // MaxDepth
 
+
     maxDepth(root) {
         let depth = 0;
         helper(root, 1);
@@ -579,6 +748,40 @@ class BinaryTree {
     }
 
     // MinDepth
+
+
+    maxDepth(root) {
+        let depth = 0;
+        helper(root, 1);
+        return depth;
+
+        function helper(node, height) {
+            if (node) {
+                depth = Math.max(depth, height);
+                helper(node.left, height + 1);
+                helper(node.right, height + 1);
+            }
+        }
+    }
+
+    minDepth(root) {
+
+        if (!root) return 0;
+        let result;
+
+        helper(root, 1);
+        return result;
+
+        function helper(node, height) {
+            if (!node.left && !node.right) {
+                result = Math.min(result || height, height);
+            }
+
+            if (node.left) helper(node.left, height +1);
+            if (node.right) helper(node.right, height + 1);
+        }
+
+    }
 
     minDepth(root) {
 
@@ -637,4 +840,81 @@ function invertTree(root) {
 }
 
 
+function invertTree(root) {
 
+    if (root) {
+        swap(root);
+        invertTree(root.left);
+        invertTree(root.right);
+    }
+
+    function swap(root) {
+        let left = root.left;
+        root.left = root.right;
+        root.right = left;
+    }
+}
+
+
+function subset(nums) {
+    let stack = [[]];
+
+    for (let i = 0; i < nums.length; i++) {
+        let length = stack.length;
+        for (let j = 0; j < length; j ++) {
+            stack.push([...stack[j]], nums[i]);
+        }
+    }
+
+    return stack;
+}
+
+function permutations(nums) {
+
+    let stack = [[]];
+    let result = [];
+
+    while(stack.length) {
+        let last = stack.pop();
+
+        if (last.length < nums.length) {
+
+            for (let num of nums) {
+                if (!last.includes(num)) {
+                    stack.push(last.concat([num]));
+                }
+            }
+        } else {
+            result.push(last);
+        }
+    }
+}
+
+function perumutations(nums) {
+    let stack = [[]]; 
+    let result = [];
+}
+
+function permutations(nums) {
+
+    let stack = [[]];
+    let result = [];
+
+    while (stack.length) {
+        let last = stack.pop();
+
+        if (last.length < nums.length) {
+
+            for (let num of nums) {
+                
+                if (!last.includes(num)) {
+                    stack.push(last.concat([num]));
+                }
+            }
+        } else {
+            result.push(last);
+        }
+    }
+
+    return result;
+}
