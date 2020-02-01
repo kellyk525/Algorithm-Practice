@@ -2,11 +2,10 @@
 //  nth fibonacci
 
 function fib(n) {
-
     if (n === 0) return 0;
-    if (n ===1) return 1;
+    if (n === 1)  return 1;
 
-    return fib
+    return fib(n-1) + fib(n-2);
 }
 
 //  two sum 
@@ -56,6 +55,7 @@ function isPrimes (n) {
     return true;
 }
 
+
 // Fizz Buzz
 
 var fizzBuzz = function(n) {
@@ -76,10 +76,7 @@ var fizzBuzz = function(n) {
     return final;
 }
 
-
-
 //  reverse String
-
 
 var reverseString = function(s) {
 
@@ -93,7 +90,6 @@ var reverseString = function(s) {
         s[i] = swap;
         s[s.length - (i+1)] = first;
     }
-
 }
 
 //  Valid Anagrams
@@ -148,7 +144,6 @@ var containDuplicate = function(nums) {
 var singleNumber = function(nums) {
 
     let final = {};
-
     for (let char of nums) {
 
         if (final[char]) {
@@ -159,7 +154,6 @@ var singleNumber = function(nums) {
     }
 
     let result = Object.keys(final);
-
     for (let char of result) {
 
         if (final[char] === 1) {
@@ -214,28 +208,6 @@ function permutations(nums) {
             result.push(last);
         }
     }
-    return result;
-}
-
-function permutations(nums) {
-
-    let stack =[[]];
-    let result = [];
-
-    while (stack.length) {
-        let last = stack.pop();
-
-        if (last.length < nums.length) {
-            for (let num of nums) {
-                if (!last.includes(num)) {
-                    stack.push(last.concat([num]));
-                }
-            }
-        } else {
-            result.push(last);
-        }
-    }
-
     return result;
 }
 
@@ -312,6 +284,12 @@ function firstUniqueChar(s) {
     }
 
     return -1;
+}
+
+function firstUniqueChar(s) {
+    let final = {};
+
+    for (let )
 }
 
 // Sum of Even after Queries
@@ -443,7 +421,6 @@ class Node {
         node.next = Node(value);
     }
 
-
     getValue(index) {
         let node = this;
 
@@ -457,7 +434,6 @@ class Node {
         } else {
             return false;
         }
-
     }
 
     deleteByValue(value) {
@@ -473,6 +449,7 @@ class Node {
             // goes to the new value that was set on node.next
         }
     }
+
 
     reverseLinkedList(root) {
 
@@ -530,7 +507,8 @@ class Node {
 
     removeNthFromEnd(head, n) {
 
-        let node = new ListNode(0); node.next = head
+        let node = new ListNode(0);
+        node.next = head
         let fast = node, slow = node
         for (let i = 1; i <= n + 1; i++) {
             fast = fast.next
@@ -853,68 +831,4 @@ function invertTree(root) {
         root.left = root.right;
         root.right = left;
     }
-}
-
-
-function subset(nums) {
-    let stack = [[]];
-
-    for (let i = 0; i < nums.length; i++) {
-        let length = stack.length;
-        for (let j = 0; j < length; j ++) {
-            stack.push([...stack[j]], nums[i]);
-        }
-    }
-
-    return stack;
-}
-
-function permutations(nums) {
-
-    let stack = [[]];
-    let result = [];
-
-    while(stack.length) {
-        let last = stack.pop();
-
-        if (last.length < nums.length) {
-
-            for (let num of nums) {
-                if (!last.includes(num)) {
-                    stack.push(last.concat([num]));
-                }
-            }
-        } else {
-            result.push(last);
-        }
-    }
-}
-
-function perumutations(nums) {
-    let stack = [[]]; 
-    let result = [];
-}
-
-function permutations(nums) {
-
-    let stack = [[]];
-    let result = [];
-
-    while (stack.length) {
-        let last = stack.pop();
-
-        if (last.length < nums.length) {
-
-            for (let num of nums) {
-                
-                if (!last.includes(num)) {
-                    stack.push(last.concat([num]));
-                }
-            }
-        } else {
-            result.push(last);
-        }
-    }
-
-    return result;
 }

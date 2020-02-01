@@ -70,10 +70,16 @@ true + 1 === 2
 false + 1 === 1
 
 
+
 // Closure
 
 //When inner function has access to variables defined outside of the function.
 // all functions are closures.
+
+// Closure is a feature in JavaScript where a function has access to its own scope variables, access to the outer function variables and access to the global variables.
+// Closure has access to its outer function scope even after the outer function has returned.This means a closure can remember and access variables and arguments of its outer function even after the function has finished.
+// The inner function can access the variables defined in its own scope, the outer function’s scope, and the global scope.And the outer function can access the variable defined in its own scope and the global scope.
+
 const Kelly = 123;
 
 function outer() {
